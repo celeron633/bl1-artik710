@@ -113,7 +113,7 @@ static CBOOL	NX_SDMMC_SetClock( SDXCBOOTSTATUS * pSDXCBootStatus, CBOOL enb, U32
 	CBOOL ret;
 
 #if defined(VERBOSE)
-	dev_msg("NX_SDMMC_SetClock : divider = %d\r\n", divider);
+	dev_msg("NX_SDMMC_SetClock : nFreq = %d\r\n", nFreq);
 #endif
 
 	//	NX_ASSERT( (1==divider) || (0==(divider&1)) );		// 1 or even number
@@ -1050,8 +1050,9 @@ static	CBOOL	SDMMCBOOT(SDXCBOOTSTATUS * pSDXCBootStatus,
 			;
 	}
 
+	// read nsih header of TBI
 	result = NX_SDMMC_ReadSectors(pSDXCBootStatus,
-			pSBI->DEVICEADDR/BLOCK_LENGTH, 2, (U32 *)pTBI );
+			pSBI->DEVICEADDR/BLOCK_LENGTH, 1, (U32 *)pTBI );
 #if 0
 	do {
 	U32 i;
@@ -1121,10 +1122,11 @@ static	CBOOL	SDMMCBOOT(SDXCBOOTSTATUS * pSDXCBootStatus,
 			(uint32_t)ptbh->tbbi.loadsize,
 			(uint32_t)ptbh->tbbi.startaddr);
 
+	// read following TBI bootloader code
 	result = NX_SDMMC_ReadSectors(pSDXCBootStatus,
-			pSBI->DEVICEADDR / BLOCK_LENGTH + 2,
+			pSBI->DEVICEADDR / BLOCK_LENGTH + 1,
 			(ptbh->tbbi.loadsize + BLOCK_LENGTH - 1) / BLOCK_LENGTH,
-			(U32 *)((MPTRS)(ptbh->tbbi.loadaddr + BLOCK_LENGTH * 2)));
+			(U32 *)((MPTRS)(ptbh->tbbi.loadaddr + BLOCK_LENGTH)));
 	pTBI->LAUNCHADDR = ptbh->tbbi.startaddr;	/* for old style boot */
 
 	if (pReg_ClkPwr->SYSRSTCONFIG & 1<<14)

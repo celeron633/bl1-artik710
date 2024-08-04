@@ -194,13 +194,20 @@ struct nx_ddrphy_drvdsinfo {
 struct nx_tbbinfo {
 	uint32_t vector[8];			/* 0x000 ~ 0x01c */
 	uint32_t vector_rel[8];			/* 0x020 ~ 0x03c */
-
+#if 1
+	uint32_t devreadaddr;
+    uint32_t loadsize;
+    uint32_t loadaddr;
+    uint32_t startaddr;
+    uint32_t _reserved0[6];
+#else
 	uint32_t _reserved0[4];			/* 0x040 ~ 0x04C */
 
 	uint32_t loadsize;			/* 0x050 */
 	uint32_t crc32;				/* 0x054 */
 	uint64_t loadaddr;			/* 0x058 ~ 0x05c */
 	uint64_t startaddr;			/* 0x060 ~ 0x064 */
+#endif
 
 	uint32_t _reserved1[2];			/* 0x068 ~ 0x06c */
 

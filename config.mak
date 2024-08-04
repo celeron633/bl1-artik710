@@ -22,17 +22,17 @@ VERINFO				= V110
 ###########################################################################
 # Build Environment
 ###########################################################################
-DEBUG				= n
+DEBUG				= y
 
-#OPMODE				= aarch64
-OPMODE				= aarch32
+OPMODE				= aarch64
+#OPMODE				= aarch32
 
 MEMTYPE				= DDR3
 #MEMTYPE			= LPDDR3
 MEMTEST				= n
 
-INITPMIC			= YES
-#INITPMIC			= NO
+#INITPMIC			= YES
+INITPMIC			= NO
 
 CRC_CHECK			= n
 
@@ -45,13 +45,13 @@ SUPPORT_SDMMC_BOOT		= y
 
 #BOARD				= SVT
 #BOARD				= ASB
-#BOARD				= DRONE
+BOARD				= DRONE
 #BOARD				= AVN
 #BOARD				= BF700
-BOARD				?= RAPTOR
+#BOARD				?= RAPTOR
 
 # System Log Message
-SYSLOG				?= n
+SYSLOG				?= y
 
 # Secure Boot
 SECURE_ON			?= 0
@@ -73,8 +73,8 @@ CROSS_TOOL_TOP			=
 CROSS_TOOL			= $(CROSS_TOOL_TOP)aarch64-none-elf-
 else
 CROSS_TOOL_TOP			=
-CROSS_TOOL			= $(CROSS_TOOL_TOP)aarch64-none-elf-
-#CROSS_TOOL			= $(CROSS_TOOL_TOP)aarch64-elf-
+#CROSS_TOOL			= $(CROSS_TOOL_TOP)aarch64-none-elf-
+CROSS_TOOL			= $(CROSS_TOOL_TOP)aarch64-elf-
 endif
 endif
 
@@ -121,7 +121,7 @@ RANLIB 			= $(CROSS_TOOL)ranlib
 GCC_LIB			= $(shell $(CC) -print-libgcc-file-name)
 
 ifeq ($(DEBUG), y)
-CFLAGS			+= -DNX_DEBUG -Os
+CFLAGS			+= -DNX_DEBUG -DVERBOSE -Os
 Q				=
 else
 CFLAGS			+= -DNX_RELEASE -Os
