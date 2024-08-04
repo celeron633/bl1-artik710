@@ -21,6 +21,8 @@
 #include "iSDHCBOOT.h"
 #include "nx_bootheader.h"
 
+#include "dumphex.h"
+
 #if DEVMSG_ON
 #define dev_msg         printf
 #else
@@ -1128,6 +1130,16 @@ static	CBOOL	SDMMCBOOT(SDXCBOOTSTATUS * pSDXCBootStatus,
 			(ptbh->tbbi.loadsize + BLOCK_LENGTH - 1) / BLOCK_LENGTH,
 			(U32 *)((MPTRS)(ptbh->tbbi.loadaddr + BLOCK_LENGTH)));
 	pTBI->LAUNCHADDR = ptbh->tbbi.startaddr;	/* for old style boot */
+
+#if defined(NX_DEBUG)
+	printf("dump loadaddr begin!\r\n");
+	DumpHex((void*)ptbh->tbbi.loadaddr, 1024);
+	printf("dump loadaddr end!\r\n");
+
+	printf("dump startaddr begin!\r\n");
+	DumpHex((void*)ptbh->tbbi.startaddr, 1024);
+	printf("dump startaddr begin!\r\n");
+#endif
 
 	if (pReg_ClkPwr->SYSRSTCONFIG & 1<<14)
 		Decrypt((U32 *)(ptbh->tbbi.loadaddr + sizeof(struct nx_bootheader)),
