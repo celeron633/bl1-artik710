@@ -896,5 +896,15 @@ CBOOL iUSBBOOT(struct NX_SecondBootInfo *pTBI)
 	SYSMSG("USB Load Address = 0x%08X Launch Address = 0x%08X, size = %d bytes\r\n",
 		pTBI->LOADADDR, pTBI->LAUNCHADDR, pTBI->LOADSIZE);
 
+#if defined(VERBOSE)
+	printf("dump loadaddr begin!\r\n");
+	DumpHex((void*)pTBI->LOADADDR, 1024);
+	printf("dump loadaddr end!\r\n");
+
+	printf("dump startaddr begin!\r\n");
+	DumpHex((void*)pTBI->LAUNCHADDR, 1024);
+	printf("dump startaddr begin!\r\n");
+#endif
+
 	return CTRUE;
 }
