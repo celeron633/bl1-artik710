@@ -1131,7 +1131,7 @@ static	CBOOL	SDMMCBOOT(SDXCBOOTSTATUS * pSDXCBootStatus,
 			(U32 *)((MPTRS)(ptbh->tbbi.loadaddr + BLOCK_LENGTH)));
 	pTBI->LAUNCHADDR = ptbh->tbbi.startaddr;	/* for old style boot */
 
-#if defined(NX_DEBUG)
+#if defined(VERBOSE)
 	printf("dump loadaddr begin!\r\n");
 	DumpHex((void*)ptbh->tbbi.loadaddr, 1024);
 	printf("dump loadaddr end!\r\n");

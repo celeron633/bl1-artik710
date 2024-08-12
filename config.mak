@@ -121,7 +121,7 @@ RANLIB 			= $(CROSS_TOOL)ranlib
 GCC_LIB			= $(shell $(CC) -print-libgcc-file-name)
 
 ifeq ($(DEBUG), y)
-CFLAGS			+= -DNX_DEBUG -DVERBOSE -Os
+CFLAGS			+= -DNX_DEBUG -Os
 Q				=
 else
 CFLAGS			+= -DNX_RELEASE -Os
