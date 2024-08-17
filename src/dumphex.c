@@ -9,6 +9,10 @@ void DumpHex(const void *data, uint32_t size)
 
     for (i = 0; i < size; ++i)
     {
+        if (i % 16 == 0) {
+            printf("0x%08X | ", (int)data + i);
+        }
+
         printf("%02X ", ((unsigned char *)data)[i]);
         if (((unsigned char *)data)[i] >= ' ' && ((unsigned char *)data)[i] <= '~')
         {
