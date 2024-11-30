@@ -903,7 +903,7 @@ CBOOL iUSBBOOT(struct NX_SecondBootInfo *pTBI)
 
 	printf("dump startaddr begin!\r\n");
 	DumpHex((void*)pTBI->LAUNCHADDR, 1024);
-	printf("dump startaddr begin!\r\n");
+	printf("dump startaddr end!\r\n");
 #endif
 
 	return CTRUE;
